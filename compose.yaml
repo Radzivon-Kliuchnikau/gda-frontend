@@ -11,8 +11,7 @@ services:
   server:
     build:
       context: .
-    environment:
-      NODE_ENV: production
+    
     ports:
       - 5050:5050
 
