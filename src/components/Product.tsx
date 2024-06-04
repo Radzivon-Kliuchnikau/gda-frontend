@@ -1,4 +1,5 @@
-import { Body1, Caption1, Card, CardHeader, CardPreview, makeStyles } from "@fluentui/react-components";
+import { Body1, Button, Caption1, Card, CardHeader, CardPreview, makeStyles } from "@fluentui/react-components";
+import { Dispatch } from "react";
 
 const useStyles = makeStyles({
     card: {
@@ -8,11 +9,15 @@ const useStyles = makeStyles({
     },
 });
 
-export const Product = ({ product }: { product: Product }) => {
-
-
-
+export const Product = ({ product, selections, addSelection, removeSelection }: {
+    product: Product;
+    selections: number[];
+    addSelection: Dispatch<number>;
+    removeSelection: Dispatch<number>;
+}) => {
     const styles = useStyles();
+
+    const isSelected = selections.includes(product.id);
 
     return (
         <>
@@ -31,6 +36,9 @@ export const Product = ({ product }: { product: Product }) => {
                         alt="Preview of a Word document: About Us - Overview"
                     />
                 </CardPreview>
+                {isSelected
+                    ? <Button appearance="secondary" onClick={() => removeSelection(product.id)}>Remove from the cart</Button>
+                    : <Button appearance="secondary" onClick={() => addSelection(product.id)}>Add to cart</Button>}
             </Card>
         </>
     )

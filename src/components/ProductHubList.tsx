@@ -1,10 +1,15 @@
 import { Tab, TabList } from "@fluentui/react-components";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { ProductList } from "./ProductList";
 
 
 
-export const ProductsHubList = ({ data }: { data: ProductsHub; }) => {
+export const ProductsHubList = ({ data, selections, addSelection, removeSelection }: { 
+        data: ProductsHub; 
+        selections: number[];
+        addSelection: Dispatch<number>;
+        removeSelection: Dispatch<number>;
+    }) => {
     const categories: string[] = [];
     data.products.map((product) => categories.push(product.category));
     const uniqueCategories = categories.filter((product, index, dataArray) => index == dataArray.indexOf(product));
@@ -23,7 +28,12 @@ export const ProductsHubList = ({ data }: { data: ProductsHub; }) => {
                     </Tab>
                 ))}
             </TabList>
-            <ProductList products={data.products.filter((product) => product.category == selectedCategory)} />
+            <ProductList
+                products={data.products.filter((product) => product.category == selectedCategory)}
+                selections={selections}
+                addSelection={addSelection}
+                removeSelection={removeSelection}
+            />
         </>
     );
 };

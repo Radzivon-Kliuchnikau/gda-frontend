@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import './App.css'
 import { Spinner } from '@fluentui/react-components';
 import { ProductsHubList } from "./components/ProductHubList";
 
@@ -54,12 +53,38 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const abortController = new AbortController();
+    const saveSelections = async () => {
+      await fetch("api/user/selections", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(selections),
+        signal: abortController.signal
+      })
+    }
+    if(dataLoadState == DataLoadState.Loaded) {
+      saveSelections();
+    }
+
+    return () => {
+      abortController.abort();
+    }
+  }, [selections, dataLoadState]);
+
   return (
     <>
       <h1>Test Products Hub</h1>
       {(dataLoadState == DataLoadState.NotLoaded || dataLoadState == DataLoadState.Loading) && <Spinner appearance="primary" />}
       {dataLoadState == DataLoadState.Loaded && (
-        <ProductsHubList data={data!} />
+        <ProductsHubList
+          data={data!}
+          selections={selections}
+          addSelection={addSelection}
+          removeSelection={removeSelection}
+        />
       )}
     </>
   )
