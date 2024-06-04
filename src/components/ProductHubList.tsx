@@ -4,12 +4,12 @@ import { ProductList } from "./ProductList";
 
 
 
-export const ProductsHubList = ({ data, selections, addSelection, removeSelection }: { 
-        data: ProductsHub; 
-        selections: number[];
-        addSelection: Dispatch<number>;
-        removeSelection: Dispatch<number>;
-    }) => {
+export const ProductsHubList = ({ data, selections, addSelection, removeSelection }: {
+    data: ProductsHub;
+    selections: number[];
+    addSelection: Dispatch<number>;
+    removeSelection: Dispatch<number>;
+}) => {
     const categories: string[] = [];
     data.products.map((product) => categories.push(product.category));
     const uniqueCategories = categories.filter((product, index, dataArray) => index == dataArray.indexOf(product));

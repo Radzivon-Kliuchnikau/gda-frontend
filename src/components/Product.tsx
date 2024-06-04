@@ -4,8 +4,8 @@ import { Dispatch } from "react";
 const useStyles = makeStyles({
     card: {
         margin: "auto",
-        width: "720px",
-        maxWidth: "100%",
+        width: "300px",
+        maxWidth: "50%",
     },
 });
 
